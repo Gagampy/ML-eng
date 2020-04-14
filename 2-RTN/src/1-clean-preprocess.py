@@ -3,8 +3,8 @@ import argparse
 import pandas as pd
 
 
-DATAPATH = './2-RTN/data/ria_1k.json'
-DATASAVE = './2-RTN/data/cleaned/ria-1k-clean.csv'
+DATAPATH = '2-RTN/data/ria_1k.json'
+DATASAVE = '2-RTN/data/cleaned/ria-1k-clean.csv'
 
 
 def clean_text(text: str) -> str:
@@ -15,7 +15,6 @@ def clean_text(text: str) -> str:
     :return: str -- Processed text.
 
     """
-
     text = re.sub('</*p.*?>|\\n|<strong.*strong>|<img.*?}-]\" />', '', text).strip()
     text = re.sub('\&nbsp;', ' ', text)
     text = re.sub('\&ndash;', '-', text)
@@ -24,10 +23,9 @@ def clean_text(text: str) -> str:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-fp', default=DATAPATH, type='str')
-    parser.add_argument('-sp', default=DATASAVE, type='str')
+    parser.add_argument('-fp', default=DATAPATH)
+    parser.add_argument('-sp', default=DATASAVE)
     parser = parser.parse_args()
-
     dataset = pd.read_json(parser.fp, lines=True, encoding='utf-8')
     dataset['text'] = dataset['text'].apply(clean_text)
     dataset.to_csv(parser.sp, index=False)

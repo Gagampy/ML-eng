@@ -1,0 +1,14 @@
+md5: 649d170b62643d34919d90cd7358bbe3
+cmd: python3 2-RTN/src/2-tokenize.py
+wdir: ../..
+deps:
+- md5: d0c267f5f148adbac72968b81d1322c3
+  path: 2-RTN/src/2-tokenize.py
+- md5: 0b5f13927ffd9a7ced4e98cbcb7a743b
+  path: 2-RTN/data/cleaned/ria-1k-clean.csv
+outs:
+- md5: 1241a24cc6677ed1515ee7751015758c
+  path: 2-RTN/data/tokenized/ria-tokenized.pkl
+  cache: true
+  metric: false
+  persist: false

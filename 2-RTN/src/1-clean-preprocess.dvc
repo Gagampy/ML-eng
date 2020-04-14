@@ -7,7 +7,7 @@ deps:
   path: 2-RTN/data/ria_1k.json
 outs:
 - md5: d751713988987e9331980363e24189ce.dir
-  path: 2-RTN/data/cleaned
+  path: 2-RTN/data/cleaned/ria-1k-clean.csv
   cache: true
   metric: false
   persist: false

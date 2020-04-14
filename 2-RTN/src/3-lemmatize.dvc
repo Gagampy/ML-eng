@@ -1,0 +1,14 @@
+md5: 4c6de2aeb6fe83aac7c210cb8e5ae14a
+cmd: python3 2-RTN/src/3-lemmatize.py
+wdir: ../..
+deps:
+- md5: b362151775a28fabe2550b3cd8a0357c
+  path: 2-RTN/data/tokenized/ria-tokenized.pkl
+- md5: 182443ce689f2d9b26086942acc25319
+  path: 2-RTN/src/3-lemmatize.py
+outs:
+- md5: 56eeefdead2b8fc992bf17fe9766a461
+  path: 2-RTN/data/lemmatized/ria-lemmatized.pkl
+  cache: true
+  metric: false
+  persist: false
