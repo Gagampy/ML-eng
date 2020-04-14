@@ -1,0 +1,7 @@
+md5: d882adac63829da7850e8fad714f776f
+outs:
+- md5: 41465b8d8ec1b5ed9f6e3598c7641217
+  path: ria.json
+  cache: true
+  metric: false
+  persist: false
