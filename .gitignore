@@ -3,3 +3,6 @@
 /2-RTN/data/ria.json
 /1-Docker-tfidf/.idea/
 /1-Docker-tfidf/venv/
+/.idea
+.ipynb_checkpoints
+Untitled.ipynb
