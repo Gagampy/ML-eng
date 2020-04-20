@@ -1,14 +1,14 @@
-md5: d7ae898992eabc5372de2700b703aa83
-cmd: python3 2-RTN/src/3-lemmatize.py
+md5: fd230c9d48dc13c6d16f17a74c008962
+cmd: python 2-RTN/src/3-lemmatize.py
 wdir: ../..
 deps:
-- md5: 0b5f13927ffd9a7ced4e98cbcb7a743b
-  path: 2-RTN/data/cleaned/ria-1k-clean.csv
-- md5: 4ac17b747a4bca22c46586c97fee6721
+- md5: 070ee601b9af2282917ab2a6151a0db4
   path: 2-RTN/src/3-lemmatize.py
+- md5: 732656ee23a308d73663e703b141c6f1
+  path: 2-RTN/data/tokenized/ria-tokenized.json
 outs:
-- md5: 6a4d4a32544022d3e114f5d2b0099fe1
-  path: 2-RTN/data/lemmatized/ria-lemmatized.json
+- md5: e00c0e1d4c359667ac56ca832856f9cd.dir
+  path: 2-RTN/data/lemmatized
   cache: true
   metric: false
   persist: false

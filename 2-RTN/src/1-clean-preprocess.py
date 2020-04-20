@@ -1,6 +1,7 @@
 import re
 import argparse
 import pandas as pd
+from pathlib import Path
 
 
 DATAPATH = '2-RTN/data/ria_1k.json'
@@ -26,7 +27,11 @@ def main():
     parser.add_argument('-fp', default=DATAPATH)
     parser.add_argument('-sp', default=DATASAVE)
     parser = parser.parse_args()
+
+    Path('2-RTN/data/cleaned/').mkdir(parents=True, exist_ok=True)
+
     dataset = pd.read_json(parser.fp, lines=True, encoding='utf-8')
+
     dataset['text'] = dataset['text'].apply(clean_text)
     dataset.to_csv(parser.sp, index=False)
 

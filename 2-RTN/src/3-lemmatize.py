@@ -5,6 +5,7 @@ import rupostagger
 import rulemma
 import json
 from tqdm import tqdm
+from pathlib import Path
 
 DATAPATH = '2-RTN/data/cleaned/ria-1k-clean.csv'
 DATASAVE = '2-RTN/data/lemmatized/ria-lemmatized.json'
@@ -15,6 +16,8 @@ def main():
     parser.add_argument('-fp', default=DATAPATH)
     parser.add_argument('-sp', default=DATASAVE)
     parser = parser.parse_args()
+
+    Path('2-RTN/data/lemmatized/').mkdir(parents=True, exist_ok=True)
 
     lemmatizer = rulemma.Lemmatizer()
     lemmatizer.load()

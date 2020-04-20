@@ -3,6 +3,7 @@ import argparse
 import rutokenizer
 import json
 from tqdm import tqdm
+from pathlib import Path
 
 DATAPATH = '2-RTN/data/cleaned/ria-1k-clean.csv'
 DATASAVE = '2-RTN/data/tokenized/ria-tokenized.json'
@@ -13,6 +14,8 @@ def main():
     parser.add_argument('-fp', default=DATAPATH)
     parser.add_argument('-sp', default=DATASAVE)
     parser = parser.parse_args()
+
+    Path('2-RTN/data/tokenized/').mkdir(parents=True, exist_ok=True)
 
     tokenizer = rutokenizer.Tokenizer()
     tokenizer.load()
