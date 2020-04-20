@@ -1,12 +1,11 @@
 import pandas as pd
 import argparse
-from nltk.tokenize import word_tokenize
-import pickle
-import nltk
-nltk.download('punkt')
+import rutokenizer
+import json
+from tqdm import tqdm
 
 DATAPATH = '2-RTN/data/cleaned/ria-1k-clean.csv'
-DATASAVE = '2-RTN/data/tokenized/ria-tokenized.pkl'
+DATASAVE = '2-RTN/data/tokenized/ria-tokenized.json'
 
 
 def main():
@@ -15,11 +14,18 @@ def main():
     parser.add_argument('-sp', default=DATASAVE)
     parser = parser.parse_args()
 
+    tokenizer = rutokenizer.Tokenizer()
+    tokenizer.load()
+
     dataset = pd.read_csv(parser.fp, encoding='utf-8')
-    result = {title: tokens for title, tokens in zip(dataset['title'],
-                                                     dataset['text'].apply(lambda x: word_tokenize(x)).values.tolist())}
-    with open(parser.sp, 'wb') as f:
-        pickle.dump(result, f)
+
+    result = {'text': [], 'title': []}
+    for title, text in tqdm(zip(dataset['title'], dataset['text'])):
+        result['title'].append([word.lower() for word in tokenizer.tokenize(title)])
+        result['text'].append([word.lower() for word in tokenizer.tokenize(text)])
+
+    with open(parser.sp, 'w') as f:
+        json.dump(result, f)
 
 
 if __name__ == '__main__':

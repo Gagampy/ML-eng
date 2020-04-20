@@ -1,9 +1,13 @@
+import pandas as pd
 import argparse
-from nltk.stem import WordNetLemmatizer
-import pickle
+import rutokenizer
+import rupostagger
+import rulemma
+import json
+from tqdm import tqdm
 
-DATAPATH = '2-RTN/data/tokenized/ria-tokenized.pkl'
-DATASAVE = '2-RTN/data/lemmatized/ria-lemmatized.pkl'
+DATAPATH = '2-RTN/data/cleaned/ria-1k-clean.csv'
+DATASAVE = '2-RTN/data/lemmatized/ria-lemmatized.json'
 
 
 def main():
@@ -12,17 +16,24 @@ def main():
     parser.add_argument('-sp', default=DATASAVE)
     parser = parser.parse_args()
 
-    with open(parser.fp, 'rb') as f:
-        dataset = pickle.load(f)
+    lemmatizer = rulemma.Lemmatizer()
+    lemmatizer.load()
 
-    lemm = WordNetLemmatizer()
-    dataset = {title: [lemm.lemmatize(token) for token in tokens] for title, tokens in zip(dataset.keys(),
-                                                                                           dataset.values()
-                                                                                           )
-               }
+    tokenizer = rutokenizer.Tokenizer()
+    tokenizer.load()
 
-    with open(parser.sp, 'wb') as f:
-        pickle.dump(dataset, f)
+    tagger = rupostagger.RuPosTagger()
+    tagger.load()
+
+    dataset = pd.read_csv(parser.fp, encoding='utf-8')
+
+    result = {'text': [], 'title': []}
+    for title, text in tqdm(zip(dataset['title'], dataset['text'])):
+        result['title'].append([lemma for _, _, lemma, *_ in lemmatizer.lemmatize(tagger.tag(tokenizer.tokenize(title)))])
+        result['text'].append([lemma for _, _, lemma, *_ in lemmatizer.lemmatize(tagger.tag(tokenizer.tokenize(text)))])
+
+    with open(parser.sp, 'w') as f:
+        json.dump(result, f)
 
 
 if __name__ == '__main__':
