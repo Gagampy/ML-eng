@@ -6,7 +6,7 @@ from tqdm import tqdm
 from pathlib import Path
 
 DATAPATH = '2-RTN/data/cleaned/ria-1k-clean.csv'
-DATASAVE = '2-RTN/data/tokenized/ria-tokenized.csv'
+DATASAVE = '2-RTN/data/tokenized/ria-tokenized.json'
 
 
 def main():
@@ -27,7 +27,7 @@ def main():
         result['title'].append([word.lower() for word in tokenizer.tokenize(title)])
         result['text'].append([word.lower() for word in tokenizer.tokenize(text)])
 
-    pd.DataFrame.from_dict(result).to_csv(parser.sp, index=False)
+    pd.DataFrame.from_dict(result).to_json(parser.sp, orient='records', lines=True)
     # with open(parser.sp, 'w') as f:
     #     json.dump(result, f)
 
