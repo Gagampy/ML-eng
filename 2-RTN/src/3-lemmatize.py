@@ -3,12 +3,12 @@ import argparse
 import rutokenizer
 import rupostagger
 import rulemma
-import json
+# import json
 from tqdm import tqdm
 from pathlib import Path
 
 DATAPATH = '2-RTN/data/cleaned/ria-1k-clean.csv'
-DATASAVE = '2-RTN/data/lemmatized/ria-lemmatized.json'
+DATASAVE = '2-RTN/data/lemmatized/ria-lemmatized.csv'
 
 
 def main():
@@ -35,8 +35,10 @@ def main():
         result['title'].append([lemma for _, _, lemma, *_ in lemmatizer.lemmatize(tagger.tag(tokenizer.tokenize(title)))])
         result['text'].append([lemma for _, _, lemma, *_ in lemmatizer.lemmatize(tagger.tag(tokenizer.tokenize(text)))])
 
-    with open(parser.sp, 'w') as f:
-        json.dump(result, f)
+    pd.DataFrame.from_dict(result).to_csv(parser.sp, index=False)
+
+    # with open(parser.sp, 'w') as f:
+    #     json.dump(result, f)
 
 
 if __name__ == '__main__':

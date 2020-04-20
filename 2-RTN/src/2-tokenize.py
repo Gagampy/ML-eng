@@ -1,12 +1,12 @@
 import pandas as pd
 import argparse
 import rutokenizer
-import json
+# import json
 from tqdm import tqdm
 from pathlib import Path
 
 DATAPATH = '2-RTN/data/cleaned/ria-1k-clean.csv'
-DATASAVE = '2-RTN/data/tokenized/ria-tokenized.json'
+DATASAVE = '2-RTN/data/tokenized/ria-tokenized.csv'
 
 
 def main():
@@ -27,8 +27,9 @@ def main():
         result['title'].append([word.lower() for word in tokenizer.tokenize(title)])
         result['text'].append([word.lower() for word in tokenizer.tokenize(text)])
 
-    with open(parser.sp, 'w') as f:
-        json.dump(result, f)
+    pd.DataFrame.from_dict(result).to_csv(parser.sp, index=False)
+    # with open(parser.sp, 'w') as f:
+    #     json.dump(result, f)
 
 
 if __name__ == '__main__':
