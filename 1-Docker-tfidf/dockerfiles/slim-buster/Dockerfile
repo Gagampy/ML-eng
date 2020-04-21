@@ -4,7 +4,7 @@ RUN mkdir -p /usr/src/tf_idf/
 
 WORKDIR /usr/src/tf_idf/
 
-COPY ./. /usr/src/tf_idf/
+COPY ./1-Docker-tfidf/ /usr/src/tf_idf/
 
 RUN pip3 install -r reqs.txt
 

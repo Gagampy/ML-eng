@@ -9,7 +9,7 @@ def main():
         docs = ''.join(f.readlines()).split('\n')
 
     tfidf.fit(docs)
-    with open('./tfidf_model.pkl', 'wb') as file:
+    with open('model/tfidf_model.pkl', 'wb') as file:
         pickle.dump(tfidf, file=file)
 
 

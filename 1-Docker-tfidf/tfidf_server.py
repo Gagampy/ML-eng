@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route('/get_tf-idf', methods=['GET'])
-def print_square():
+def getter():
     recieved_docs = request.get_json(force=True)['sents']
     tf_idf_matrix = tf_idf.transform(recieved_docs).toarray().tolist()
     return {'output': tf_idf_matrix}
@@ -13,7 +13,7 @@ def print_square():
 
 if __name__ == "__main__":
 
-    with open('./tfidf_model.pkl', 'rb') as f:
+    with open('model/tfidf_model.pkl', 'rb') as f:
         tf_idf = pickle.load(f)
 
     app.run(host='0.0.0.0')
