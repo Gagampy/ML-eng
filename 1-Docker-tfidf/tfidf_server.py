@@ -19,10 +19,16 @@ if __name__ == "__main__":
 
     print(os.getcwd())
 
-    with open('model/logfile.log', 'w') as f:
-        f.writelines('Server started.')
+    try:
+        with open('model/logfile.log', 'a+') as f:
+            f.writelines('Server started.')
+    except Exception as e:
+        print(e)
+
+    try:
+        with open('model/logfile.log', 'r') as f:
+            print(f.readlines())
+    except Exception as e:
+        print(e)
 
     app.run(host='0.0.0.0')
-
-    with open('model/logfile.log', 'w') as f:
-        f.writelines('Server closed.')
