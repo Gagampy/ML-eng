@@ -12,5 +12,5 @@ with open(parser.file, 'r') as f:
 
 result = requests.get(parser.url, json=doc)
 
-with open(f'./tf_idf/{parser.file.split("/")[2].split(".")[0]}_tfidf.txt', 'w') as f:
+with open(f'1-Docker-tfidf/tf_idf/{parser.file.split("/")[2].split(".")[0]}_tfidf.txt', 'w') as f:
     f.write(' '.join([str(el) for el in result.json()['output'][0]]))

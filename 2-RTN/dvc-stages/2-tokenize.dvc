@@ -1,13 +1,13 @@
-md5: f5dd27b7f88ef81968cb4d774faa2bf1
+md5: bf11fb91071f2dbd18a33117fb38a3a9
 cmd: python 2-RTN/src/2-tokenize.py
 wdir: ../..
 deps:
 - md5: 0b5f13927ffd9a7ced4e98cbcb7a743b
   path: 2-RTN/data/cleaned/ria-1k-clean.csv
-- md5: aa0523f65ef64e31b11f4124190bb41c
+- md5: e8ed93109d16484d0bed47b478e06788
   path: 2-RTN/src/2-tokenize.py
 outs:
-- md5: acf5f4f72744dd41182e8fcd728f727b.dir
+- md5: eeef00d8ac72cbc5075dfbf969d9c969.dir
   path: 2-RTN/data/tokenized
   cache: true
   metric: false

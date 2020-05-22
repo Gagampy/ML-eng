@@ -1,4 +1,6 @@
-FROM python:3.7-slim-buster
+FROM tfidf-server-baseimage
+
+CMD ["/bin/bash"]
 
 RUN mkdir -p /usr/src/tf_idf/
 
