@@ -10,4 +10,6 @@ COPY ./1-Docker-tfidf/ /usr/src/tf_idf/
 
 RUN pip3 install -r reqs.txt
 
+RUN chown 1000 /usr/src/tf_idf/model
+
 CMD ["python", "tfidf_server.py"]
