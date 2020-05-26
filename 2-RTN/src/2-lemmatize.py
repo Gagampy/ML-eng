@@ -1,13 +1,10 @@
 import pandas as pd
 import argparse
-import rutokenizer
-import rupostagger
-import rulemma
-# import json
+from pymystem3 import Mystem
 from tqdm import tqdm
 from pathlib import Path
 
-DATAPATH = '2-RTN/data/cleaned/ria-1k-clean.csv'
+DATAPATH = '2-RTN/data/cleaned/ria-cleaned.csv'
 DATASAVE = '2-RTN/data/lemmatized/ria-lemmatized.json'
 
 
@@ -19,26 +16,15 @@ def main():
 
     Path('2-RTN/data/lemmatized/').mkdir(parents=True, exist_ok=True)
 
-    lemmatizer = rulemma.Lemmatizer()
-    lemmatizer.load()
-
-    tokenizer = rutokenizer.Tokenizer()
-    tokenizer.load()
-
-    tagger = rupostagger.RuPosTagger()
-    tagger.load()
-
+    lemmatizer = Mystem()
     dataset = pd.read_csv(parser.fp, encoding='utf-8')
 
     result = {'text': [], 'title': []}
     for title, text in tqdm(zip(dataset['title'], dataset['text'])):
-        result['title'].append([lemma for _, _, lemma, *_ in lemmatizer.lemmatize(tagger.tag(tokenizer.tokenize(title)))])
-        result['text'].append([lemma for _, _, lemma, *_ in lemmatizer.lemmatize(tagger.tag(tokenizer.tokenize(text)))])
+        result['title'].append([lemma for lemma in lemmatizer.lemmatize(title)])
+        result['text'].append([lemma for lemma in lemmatizer.lemmatize(text)])
 
-    pd.DataFrame.from_dict(result).to_json(parser.sp, orient='records', lines=True) #to_csv(parser.sp, index=False)
-
-    # with open(parser.sp, 'w') as f:
-    #     json.dump(result, f)
+    pd.DataFrame.from_dict(result).to_json(parser.sp, orient='records', lines=True)
 
 
 if __name__ == '__main__':

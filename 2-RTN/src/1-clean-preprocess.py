@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 DATAPATH = '2-RTN/data/ria_1k.json'
-DATASAVE = '2-RTN/data/cleaned/ria-1k-clean.csv'
+DATASAVE = '2-RTN/data/cleaned/ria-cleaned.csv'
 
 
 def clean_text(text: str) -> str:
