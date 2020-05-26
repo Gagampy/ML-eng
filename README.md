@@ -17,3 +17,7 @@ And observe the result in `1-Docker-tfidf/tf_idf folder`.
 To inspect volume files during container running:
 * `sudo ls -l /var/lib/docker/volumes/tf-idf-model/_data`
 
+Environment for the dataset chosen is in `2-RTN`.
+
+## 2st task:
+~~ In progress ~~
