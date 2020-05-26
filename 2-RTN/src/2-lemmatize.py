@@ -21,8 +21,8 @@ def main():
 
     result = {'text': [], 'title': []}
     for title, text in tqdm(zip(dataset['title'], dataset['text'])):
-        result['title'].append([lemma for lemma in lemmatizer.lemmatize(title)])
-        result['text'].append([lemma for lemma in lemmatizer.lemmatize(text)])
+        result['title'].append([lemma for lemma in lemmatizer.lemmatize(title) if lemma != ' '])
+        result['text'].append([lemma for lemma in lemmatizer.lemmatize(text) if lemma != ' '])
 
     pd.DataFrame.from_dict(result).to_json(parser.sp, orient='records', lines=True)
 
