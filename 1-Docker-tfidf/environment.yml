@@ -1,0 +1,11 @@
+name: tfidf-server
+dependencies:
+  - python=3.7
+  - numpy=1.18.*
+  - flask
+  - pandas=1.0.3
+  - tqdm=4.46.0
+  - pip
+  - requests=2.23.0
+  - pip:
+    - scikit-learn

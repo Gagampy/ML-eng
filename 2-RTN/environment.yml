@@ -1,0 +1,17 @@
+name: rtn-title-prediction
+dependencies:
+  - python=3.7
+  - numpy=1.18.*
+  - pandas=1.0.3
+  - tqdm=4.46.0
+  - pip=20.1
+  - pip:
+    - python-crfsuite
+    - git+https://github.com/Koziev/rusyllab
+    - git+https://github.com/Koziev/ruword2tags
+    - git+https://github.com/Koziev/rulemma
+    - git+https://github.com/Koziev/rutokenizer
+    - git+https://github.com/Koziev/rutokenizer
+    - git+https://github.com/Koziev/rupostagger
+    - scikit-learn
+    - pathlib

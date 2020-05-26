@@ -1,10 +1,10 @@
 FROM python:3.7-slim-buster
 
-RUN mkdir -p /usr/src/tse/
+RUN mkdir -p /usr/src/rtn/
 
-WORKDIR /usr/src/tse/
+WORKDIR /usr/src/rtn/
 
-COPY ./ /usr/src/tse/
+COPY ./ /usr/src/rtn/
 
-RUN pip3 install -r reqs.txt
+RUN conda env create -f enviroment.yml && conda activate rtn-title-prediction && pip3 install .
 
