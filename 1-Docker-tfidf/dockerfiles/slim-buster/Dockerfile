@@ -12,10 +12,10 @@ WORKDIR /usr/src/tf_idf/
 
 COPY ./1-Docker-tfidf/ /usr/src/tf_idf/
 
-RUN conda env create -f /usr/src/tf_idf/environment.yml \
-&& eval "$(conda shell.bash hook)" \
-&& conda activate tfidf-server
+RUN conda env create -f /usr/src/tf_idf/environment.yml
+
+SHELL ["conda", "run", "-n", "tfidf-server", "/bin/bash", "-c"]
 
 RUN chown 1000 /usr/src/tf_idf/model
 
-CMD ["python", "tfidf_server.py"]
+CMD ["conda", "run", "-n", "tfidf-server", "python", "tfidf_server.py"]
