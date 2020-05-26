@@ -1,0 +1,14 @@
+md5: d452ded25a2046a8cc6b3bfcb5eeb7c6
+cmd: python 2-RTN/src/2-lemmatize.py
+wdir: ../..
+deps:
+- md5: 289eb43aa4f193d03545bc9ee381507b
+  path: 2-RTN/src/2-lemmatize.py
+- md5: 0b5f13927ffd9a7ced4e98cbcb7a743b
+  path: 2-RTN/data/cleaned/ria-cleaned.csv
+outs:
+- md5: c06c14b2812c9184f29727c876253b23
+  path: 2-RTN/data/lemmatized/ria-lemmatized.json
+  cache: true
+  metric: false
+  persist: false

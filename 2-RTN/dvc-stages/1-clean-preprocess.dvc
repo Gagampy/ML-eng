@@ -1,14 +1,14 @@
-md5: 1823347782dbfc01babf0ff772c54b46
+md5: 761f277c23a372e4e7ec42f668322ad2
 cmd: python 2-RTN/src/1-clean-preprocess.py
 wdir: ../..
 deps:
-- md5: 768e84c74697a8045da58ee52bea6940
+- md5: 868e2e2bd14ecdf66fa96d976487bdfb
   path: 2-RTN/src/1-clean-preprocess.py
 - md5: 4affc357c255dfbd806f2c21a63ebdc3
   path: 2-RTN/data/ria_1k.json
 outs:
-- md5: 428a4326916a8c2a3bcd7f38565a343d.dir
-  path: 2-RTN/data/cleaned
+- md5: 0b5f13927ffd9a7ced4e98cbcb7a743b
+  path: 2-RTN/data/cleaned/ria-cleaned.csv
   cache: true
   metric: false
   persist: false
