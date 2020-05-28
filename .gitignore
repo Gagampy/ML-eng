@@ -1,6 +1,8 @@
 /2-RTN/venv/
 /2-RTN/.idea/
+/2-RTN/.ipynb_checkpoints/
 /2-RTN/data/ria.json
+/2-RTN/*.ipynb
 /1-Docker-tfidf/.idea/
 /1-Docker-tfidf/venv/
 /.idea
@@ -14,3 +16,4 @@ Untitled.ipynb
 /1-Docker-tfidf/tf_idf/3_tfidf.txt
 /1-Docker-tfidf/requirements.txt
 /2-RTN/requirements.txt
+/2-RTN/metrics/
