@@ -20,4 +20,4 @@ To inspect volume files during container running:
 Environment for the dataset chosen is in `2-RTN`.
 
 ## 2st task:
-~~ In progress ~~
+Inspect 2-RTN for environment and DVC stages. 
