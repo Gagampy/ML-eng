@@ -9,7 +9,7 @@ from nltk.corpus import stopwords
 
 RUSSIAN_SW = set(stopwords.words("russian"))
 DATAPATH = '2-RTN/data/lemmatized/ria-lemmatized.json'
-DATASAVE = '2-RTN/metrics/3-token-statistics.metric'
+DATASAVE = '2-RTN/metrics/token-statistics.metric'
 
 
 def count_stopwords_in_sentence(tokenized_sentence: [str], stopwords_: set = RUSSIAN_SW):
