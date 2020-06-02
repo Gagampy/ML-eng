@@ -1,0 +1,14 @@
+md5: 4e23da837766968eab396cdff69e3115
+cmd: python 2-RTN/src/count_statistics.py
+wdir: ../..
+deps:
+- md5: 02b46d61ea6e901a98d57195b1d961cf
+  path: 2-RTN/data/lemmatized/ria-lemmatized.json
+- md5: 622784d75aa053091af4cc339b214a01
+  path: 2-RTN/src/count_statistics.py
+outs:
+- md5: 0d0150bd16310c5a8909e9d4cd6bb437
+  path: 2-RTN/metrics/token-statistics.metric
+  cache: true
+  metric: false
+  persist: false

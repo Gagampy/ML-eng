@@ -1,6 +1,6 @@
 [core]
-    remote = myremote
+    remote = ria-bucket
 ['remote "local"']
     url = ../dvc-local
-['remote "myremote"']
-    url = /tmp/dvc/storage
+['remote "ria-bucket"']
+    url = s3://ml-eng-hw/ria-data
