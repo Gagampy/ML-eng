@@ -1,13 +1,13 @@
-md5: 9df6780f2100074ae28ff7c9d5d53698
+md5: f15faa77f63914b5f2e49f685bf9517a
 cmd: python 2-RTN/src/count_statistics.py
 wdir: ../..
 deps:
-- md5: 02b46d61ea6e901a98d57195b1d961cf
+- md5: c06c14b2812c9184f29727c876253b23
   path: 2-RTN/data/lemmatized/lemmatized.json
 - md5: c26f1ff73d9f0a6eea85bb72d466df77
   path: 2-RTN/src/count_statistics.py
 outs:
-- md5: 0d0150bd16310c5a8909e9d4cd6bb437
+- md5: c170c30628d98f35134e1a54f28ee985
   path: 2-RTN/metrics/token-statistics.metric
   cache: false
   metric: true
