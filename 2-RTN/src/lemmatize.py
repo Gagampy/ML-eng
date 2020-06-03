@@ -4,8 +4,8 @@ from pymystem3 import Mystem
 from tqdm import tqdm
 from pathlib import Path
 
-DATAPATH = '2-RTN/data/cleaned/ria-cleaned.csv'
-DATASAVE = '2-RTN/data/lemmatized/ria-lemmatized.json'
+DATAPATH = '2-RTN/data/cleaned/cleaned.csv'
+DATASAVE = '2-RTN/data/lemmatized/lemmatized.json'
 
 
 def main():

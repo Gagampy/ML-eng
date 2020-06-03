@@ -8,7 +8,7 @@ nltk.download("stopwords")
 from nltk.corpus import stopwords
 
 RUSSIAN_SW = set(stopwords.words("russian"))
-DATAPATH = '2-RTN/data/lemmatized/ria-lemmatized.json'
+DATAPATH = '2-RTN/data/lemmatized/lemmatized.json'
 DATASAVE = '2-RTN/metrics/token-statistics.metric'
 
 

@@ -1,11 +1,11 @@
-md5: 7df78073d07d2c28fd55bffb65dffb12
+md5: 9df6780f2100074ae28ff7c9d5d53698
 cmd: python 2-RTN/src/count_statistics.py
 wdir: ../..
 deps:
-- md5: 622784d75aa053091af4cc339b214a01
-  path: 2-RTN/src/count_statistics.py
 - md5: 02b46d61ea6e901a98d57195b1d961cf
-  path: 2-RTN/data/lemmatized/ria-lemmatized.json
+  path: 2-RTN/data/lemmatized/lemmatized.json
+- md5: c26f1ff73d9f0a6eea85bb72d466df77
+  path: 2-RTN/src/count_statistics.py
 outs:
 - md5: 0d0150bd16310c5a8909e9d4cd6bb437
   path: 2-RTN/metrics/token-statistics.metric
