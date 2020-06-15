@@ -7,8 +7,6 @@
 /1-Docker-tfidf/venv/
 /.idea
 .ipynb_checkpoints
-Untitled.ipynb
-/Untitled1.ipynb
 /conala_model_attention_test.pt
 /test.json
 /1-Docker-tfidf/setup.py
