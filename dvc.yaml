@@ -1,0 +1,7 @@
+stages:
+  feature_eng:
+    cmd: python 2-RTN/src/feature_eng.py
+    deps:
+    - 2-RTN/data/lemmatized/lemmatized.json
+    outs:
+    - 2-RTN/data/feature_eng/dataset_fe.csv
