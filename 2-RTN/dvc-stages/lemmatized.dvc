@@ -1,4 +1,4 @@
-md5: 915c1399156fcb5f5620b4216de9b975
+md5: 3c662d025364a96c3364e6c0d273185a
 cmd: python 2-RTN/src/lemmatize.py
 wdir: ../..
 deps:
@@ -9,6 +9,3 @@ deps:
 outs:
 - md5: 02b46d61ea6e901a98d57195b1d961cf
   path: 2-RTN/data/lemmatized/lemmatized.json
-  cache: true
-  metric: false
-  persist: false

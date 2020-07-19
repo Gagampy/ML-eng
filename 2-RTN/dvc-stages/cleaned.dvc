@@ -1,4 +1,4 @@
-md5: b5411043886d56d952a3836972b1175e
+md5: 42d358ca2c2756af63b0d5dbbc20d394
 cmd: python 2-RTN/src/clean_preprocess.py
 wdir: ../..
 deps:
@@ -7,6 +7,3 @@ deps:
 outs:
 - md5: 0b5f13927ffd9a7ced4e98cbcb7a743b
   path: 2-RTN/data/cleaned/cleaned.csv
-  cache: true
-  metric: false
-  persist: false

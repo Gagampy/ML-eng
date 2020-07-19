@@ -11,4 +11,3 @@ outs:
   path: 2-RTN/metrics/token-statistics.metric
   cache: false
   metric: true
-  persist: false
