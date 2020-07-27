@@ -14,3 +14,5 @@
 /1-Docker-tfidf/tf_idf/3_tfidf.txt
 /1-Docker-tfidf/requirements.txt
 /1-Docker-tfidf/dockerfiles/fix_permissions
+/2-RTN/mlruns/
+2-RTN/src/__pycache__/

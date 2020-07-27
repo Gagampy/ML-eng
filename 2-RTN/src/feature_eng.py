@@ -36,6 +36,7 @@ def main():
     Path('2-RTN/data/feature_eng/').mkdir(parents=True, exist_ok=True)
 
     dataset = pd.read_json(DATAPATH, lines=True)
+
     dataset['text_len'] = dataset['text'].apply(lambda x: get_text_length(x))
     dataset['title_len'] = dataset['title'].apply(lambda x: get_text_length(x))
 
@@ -52,9 +53,9 @@ def main():
     to_drop = ['PRTS', 'INTJ', 'GRND', 'COMP', 'PRED', 'PRTF', 'ADJS', 'NUMR', 'VERB', None]
     dataset = dataset.drop(to_drop, axis=1)
 
-    new_columns = ['PRCL', 'NPRO', 'n_punct']
+    new_columns = ['PRCL', 'NPRO', 'n_punct', 'title_len']
     dataset = dataset[new_columns].fillna(dataset[new_columns].median())
-    dataset.to_csv(SAVEPATH)
+    dataset.to_csv(SAVEPATH, index=False)
 
 
 if __name__ == '__main__':

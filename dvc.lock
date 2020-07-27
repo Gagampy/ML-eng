@@ -3,6 +3,8 @@ feature_eng:
   deps:
   - path: 2-RTN/data/lemmatized/lemmatized.json
     md5: 02b46d61ea6e901a98d57195b1d961cf
+  - path: 2-RTN/src/feature_eng.py
+    md5: 0b63b22a44c7ec9b22f17a937d05840d
   outs:
   - path: 2-RTN/data/feature_eng/dataset_fe.csv
-    md5: 1aa59412d357ff8c95b65bd67eb7079e
+    md5: 757288012090624d25019a3b56a1e106

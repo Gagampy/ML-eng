@@ -1,0 +1,32 @@
+FROM continuumio/miniconda3
+
+ARG NB_USER="user1000"
+ARG NB_UID="1000"
+ARG NB_GID="100"
+
+ENV CONDA_DIR=/opt/conda \
+    HOME=/home/$NB_USER
+
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER &&\
+    mkdir -p $CONDA_DIR && \
+    chown $NB_USER:$NB_GID $CONDA_DIR
+
+WORKDIR $HOME
+
+RUN mkdir /home/$NB_USER/rtn_pipeline
+
+RUN chown -R $NB_USER:$NB_GID /home/$NB_USER
+
+WORKDIR /home/$NB_USER/rtn_pipeline
+
+USER $NB_UID
+
+COPY ./2-RTN/data/feature_eng/dataset_fe.csv /home/$NB_USER/rtn_pipeline/dataset_fc.csv
+
+COPY ./2-RTN/src/train_model.py /home/$NB_USER/rtn_pipeline/train_model.py
+
+COPY ./2-RTN/environment.yml /home/$NB_USER/rtn_pipeline/environment.yml
+
+RUN conda env create -f /home/$NB_USER/rtn_pipeline/environment.yml
+
+CMD ["conda", "run", "-n", "rtn-title-len-prediction"]
