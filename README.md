@@ -18,3 +18,21 @@ Environment for the dataset chosen is in `2-RTN`.
 
 ## 2st task:
 Inspect 2-RTN for environment and DVC stages. 
+
+
+## 3rd task:
+
+Build Docker image with conda for client:
+* `docker build -t rtn-mlflow-client-img -f 2-RTN/dockerfiles/Dockerfile_client .`
+
+Build Docker image with mlflow for server:
+* `docker build -t rtn-mlflow-serv-img -f 2-RTN/dockerfiles/Dockerfile_mlflow_serv .`
+
+Run server container:
+* `docker run --rm --name rtn-mlflow-serv -p 5000:5000 -it rtn-mlflow_serv_img bash`
+* In bash: `mlflow ui`
+
+Run client container:
+* `docker run --rm  --name rtn-mlflow-client -it rtn-mlflow-client-img bash`
+* In bash: `conda run -n client_env python train_model.py`
+

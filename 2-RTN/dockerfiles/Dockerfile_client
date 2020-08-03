@@ -13,7 +13,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER &&\
 
 WORKDIR $HOME
 
-RUN mkdir /home/$NB_USER/rtn_pipeline
+RUN mkdir /home/$NB_USER/rtn_pipeline # && mkdir /home/$NB_USER/rtn_pipeline/src
 
 RUN chown -R $NB_USER:$NB_GID /home/$NB_USER
 
@@ -25,8 +25,12 @@ COPY ./2-RTN/data/feature_eng/dataset_fe.csv /home/$NB_USER/rtn_pipeline/dataset
 
 COPY ./2-RTN/src/train_model.py /home/$NB_USER/rtn_pipeline/train_model.py
 
+COPY ./2-RTN/src/models.py /home/$NB_USER/rtn_pipeline/models.py
+
+COPY ./2-RTN/src/__init__.py /home/$NB_USER/rtn_pipeline/__init__.py
+
 COPY ./2-RTN/environment.yml /home/$NB_USER/rtn_pipeline/environment.yml
 
 RUN conda env create -f /home/$NB_USER/rtn_pipeline/environment.yml
 
-CMD ["conda", "run", "-n", "rtn-title-len-prediction"]
+#CMD ["conda", "run", "-n", "rtn-title-len-prediction"]

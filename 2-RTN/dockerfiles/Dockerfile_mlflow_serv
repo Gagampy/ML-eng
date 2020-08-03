@@ -2,4 +2,4 @@ FROM python:3.7-slim-buster
 
 RUN pip install mlflow
 
-CMD ["mlflow", "ui"]
+#CMD ["mlflow", "ui"]
