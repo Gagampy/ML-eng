@@ -29,8 +29,7 @@ Build Docker image with mlflow for server:
 * `docker build -t rtn-mlflow-serv-img -f 2-RTN/dockerfiles/Dockerfile_mlflow_serv .`
 
 Run server container:
-* `docker run --rm --name rtn-mlflow-serv -p 5000:5000 -it rtn-mlflow_serv_img bash`
-* In bash: `mlflow ui`
+* `docker run --rm --name rtn-mlflow-serv -p 5000:5000 -it rtn-mlflow-serv-img mlflow server --host 0.0.0.0`
 
 Run client container:
 * `docker run --rm  --name rtn-mlflow-client -it rtn-mlflow-client-img bash`

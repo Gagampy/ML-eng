@@ -17,7 +17,7 @@ elastic_net_param_grid = {
 class HyperoptHPOptimizer(object):
 
     def __init__(self, x_data, y_data, hyperparameters_space, model_class, max_evals, random_state=42,
-                 experiment_name='rtn_title_len_prediction', tracking_uri: str = 'http://rtn-mlflow-serv'):
+                 experiment_name='rtn_title_len_prediction', tracking_uri: str = 'http://172.17.0.2/16:5000'):
         self.trials = Trials()
         self.model_class = model_class
         self.max_evals = max_evals
