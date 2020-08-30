@@ -28,10 +28,11 @@ Build Docker image with conda for client:
 Build Docker image with mlflow for server:
 * `docker build -t rtn-mlflow-serv-img -f 2-RTN/dockerfiles/Dockerfile_mlflow_serv .`
 
+Create `rtn-net` network if it's absent in your network list:
+* `docker network create rtn-net`
+
 Run server container:
-* `docker run --rm --name rtn-mlflow-serv -p 5000:5000 -it rtn-mlflow-serv-img mlflow server --host 0.0.0.0`
+* `docker run --rm --name rtn-mlflow-serv -p 5000:5000 --network rtn-net -it rtn-mlflow-serv-img mlflow server --host 0.0.0.0`
 
 Run client container:
-* `docker run --rm  --name rtn-mlflow-client -it rtn-mlflow-client-img bash`
-* In bash: `conda run -n client_env python train_model.py`
-
+* `docker run --rm  --name rtn-mlflow-client --network rtn-net -it rtn-mlflow-client-img conda run -n client_env python train_model.py`

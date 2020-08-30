@@ -23,7 +23,7 @@ USER $NB_UID
 
 COPY ./2-RTN/data/feature_eng/dataset_fe.csv /home/$NB_USER/rtn_pipeline/dataset_fc.csv
 
-COPY ./2-RTN/src/train_model.py /home/$NB_USER/rtn_pipeline/train_model.py
+COPY ./2-RTN/src/train_models.py /home/$NB_USER/rtn_pipeline/train_models.py
 
 COPY ./2-RTN/src/models.py /home/$NB_USER/rtn_pipeline/models.py
 

@@ -5,21 +5,25 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
 
 import mlflow
-from mlflow import lightgbm as mlflow_lgbm, sklearn as mlflow_sklearn
+from mlflow import sklearn as mlflow_sklearn
 
-
-elastic_net_param_grid = {
-    'l1_ratio': hp.choice('learning_rate', np.linspace(0.001, 1, num=1000)),
+lasso_param_grid = {
     'alpha': hp.choice('alpha', np.linspace(0.001, 1, num=1000))
+}
+gb_param_grid = {
+    'learning_rate': hp.choice('learning_rate', np.linspace(0.001, 1, num=1000)),
+    'n_estimators': hp.choice('n_estimators', np.array((75, 100, 150)))
 }
 
 
 class HyperoptHPOptimizer(object):
 
     def __init__(self, x_data, y_data, hyperparameters_space, model_class, max_evals, random_state=42,
-                 experiment_name='rtn_title_len_prediction', tracking_uri: str = 'http://172.17.0.2/16:5000'):
+                 experiment_name='rtn-title-len-regr', tracking_uri: str = 'http://rtn-mlflow-serv:5000'):
+
         self.trials = Trials()
         self.model_class = model_class
+        self.run_name = model_class().__class__.__name__
         self.max_evals = max_evals
         self.hyperparameters_space = hyperparameters_space
         self.x_trn, self.x_val, self.y_trn, self.y_val = train_test_split(x_data,
@@ -27,8 +31,8 @@ class HyperoptHPOptimizer(object):
                                                                           train_size=0.7,
                                                                           random_state=random_state)
 
-        mlflow.set_experiment(experiment_name)
         mlflow.set_tracking_uri(tracking_uri)
+        mlflow.set_experiment(experiment_name)
 
     def fit_model_and_return_loss(self, hyperparameters):
         model = self.model_class(**hyperparameters)
@@ -40,7 +44,7 @@ class HyperoptHPOptimizer(object):
 
     def _get_loss_with_mlflow(self, hyperparameters):
         # MLflow will track and save hyperparameters, loss, and scores.
-        with mlflow.start_run():
+        with mlflow.start_run(run_name=self.run_name):
             print("Training with the following hyperparameters: ")
             print(hyperparameters)
 
@@ -52,8 +56,7 @@ class HyperoptHPOptimizer(object):
             for metric_name, value in metrics.items():
                 mlflow.log_metric(metric_name, value)
 
-            # elif isinstance(model, ElasticNet):
-            #     mlflow_sklearn.log_model(model, 'model', registered_model_name='ElasticNet')
+            mlflow_sklearn.log_model(model, "sklearn-model")
 
             # Use the last validation loss from the history object to optimize
             return {'loss': metrics['mae_val'], 'status': STATUS_OK}
