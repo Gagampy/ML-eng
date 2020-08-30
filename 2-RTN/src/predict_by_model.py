@@ -3,7 +3,7 @@ from logging import warning
 from typing import Tuple, Union, Dict
 
 from pandas import DataFrame, Series, read_csv
-from sklearn.linear_model import Lasso
+from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error
 import mlflow
 
@@ -23,7 +23,7 @@ def get_x_and_y(dataset_path: str) -> Tuple[DataFrame, Series]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument('-mn', default='Lasso')
+    parser.add_argument('-mn', default='GradientBoostingRegressor')
     parser.add_argument('-uri', default='http://rtn-mlflow-serv:5000')
     parser.add_argument('-en', default='rtn-title-len-regr')
     parser.add_argument('-m', default='mae_val')
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     if run_df is not None:
         params = get_params_from_run_df(run_df, model_name=parser.mn, metric=parser.m)
 
-        model = Lasso(**params)
+        model = GradientBoostingRegressor(**params)
         model.fit(X=x_train, y=y_train)
         prediction = model.predict(X=x_test)
         print("MAE on test:", mean_absolute_error(y_test, prediction))
