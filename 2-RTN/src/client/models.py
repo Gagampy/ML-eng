@@ -1,11 +1,13 @@
-import numpy as np
+from typing import Dict, List
 
 from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
+from pandas import DataFrame
+import numpy as np
 
 import mlflow
 from mlflow import sklearn as mlflow_sklearn
+
 
 lasso_param_grid = {
     'alpha': hp.choice('alpha', np.linspace(0.001, 1, num=1000))
@@ -18,18 +20,19 @@ gb_param_grid = {
 
 class HyperoptHPOptimizer(object):
 
-    def __init__(self, x_data, y_data, hyperparameters_space, model_class, max_evals, random_state=42,
-                 experiment_name='rtn-title-len-regr', tracking_uri: str = 'http://rtn-mlflow-serv:5000'):
+    def __init__(self, x_trn: DataFrame, x_val: DataFrame, y_trn: DataFrame, y_val: DataFrame,
+                 hyperparameters_space: Dict[str, List], model_class, max_evals: int,
+                 experiment_name: str = 'rtn-title-len-regr', tracking_uri: str = 'http://rtn-mlflow-serv:5000'):
 
         self.trials = Trials()
         self.model_class = model_class
         self.run_name = model_class().__class__.__name__
         self.max_evals = max_evals
         self.hyperparameters_space = hyperparameters_space
-        self.x_trn, self.x_val, self.y_trn, self.y_val = train_test_split(x_data,
-                                                                          y_data,
-                                                                          train_size=0.7,
-                                                                          random_state=random_state)
+        self.x_trn = x_trn
+        self.x_val = x_val
+        self.y_trn = y_trn
+        self.y_val = y_val
 
         mlflow.set_tracking_uri(tracking_uri)
         mlflow.set_experiment(experiment_name)

@@ -1,34 +1,22 @@
 import argparse
 from logging import warning
-from typing import Tuple, Union, Dict
+from typing import Union, Dict
 
-from pandas import DataFrame, Series, read_csv
-from sklearn.linear_model import Lasso
+from pandas import DataFrame
+from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error
+from .utils import get_train_and_test
 import mlflow
-
-
-def get_train_and_test(train_path: str, test_path: str) -> Tuple[DataFrame, Series, DataFrame, Series]:
-    """ Reads train and test datasets. """
-    train_dataset = get_x_and_y(train_path)
-    test_dataset = get_x_and_y(test_path)
-    return train_dataset[0], train_dataset[1], test_dataset[0], test_dataset[1]
-
-
-def get_x_and_y(dataset_path: str) -> Tuple[DataFrame, Series]:
-    """ Reads a dataset and split it to X and Y. """
-    dataset = read_csv(dataset_path)
-    return dataset.iloc[:, :-1], dataset.iloc[:, -1]
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument('-mn', default='Lasso')
+    parser.add_argument('-mn', default='GradientBoostingRegressor')
     parser.add_argument('-uri', default='http://rtn-mlflow-serv:5000')
     parser.add_argument('-en', default='rtn-title-len-regr')
     parser.add_argument('-m', default='mae_val')
-    parser.add_argument('-tr_data', default='2-RTN/data/split/train.csv')
-    parser.add_argument('-tt_data', default='2-RTN/data/split/test.csv')
+    parser.add_argument('-tr_data', default='./split/train.csv')
+    parser.add_argument('-tt_data', default='./split/test.csv')
 
     parser = parser.parse_args()
     return parser
@@ -67,7 +55,7 @@ if __name__ == '__main__':
     if run_df is not None:
         params = get_params_from_run_df(run_df, model_name=parser.mn, metric=parser.m)
 
-        model = Lasso(**params)
+        model = GradientBoostingRegressor(**params)
         model.fit(X=x_train, y=y_train)
         prediction = model.predict(X=x_test)
         print("MAE on test:", mean_absolute_error(y_test, prediction))

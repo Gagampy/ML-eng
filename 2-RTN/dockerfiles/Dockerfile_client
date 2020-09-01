@@ -21,11 +21,9 @@ WORKDIR /home/$NB_USER/rtn_pipeline
 
 USER $NB_UID
 
-COPY ./2-RTN/data/feature_eng/dataset_fe.csv /home/$NB_USER/rtn_pipeline/dataset_fc.csv
+COPY ./2-RTN/data/split /home/$NB_USER/rtn_pipeline/split
 
-COPY ./2-RTN/src/train_models.py /home/$NB_USER/rtn_pipeline/train_models.py
-
-COPY ./2-RTN/src/models.py /home/$NB_USER/rtn_pipeline/models.py
+COPY ./2-RTN/src/client /home/$NB_USER/rtn_pipeline/client
 
 COPY ./2-RTN/src/__init__.py /home/$NB_USER/rtn_pipeline/__init__.py
 
