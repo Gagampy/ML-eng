@@ -3,6 +3,8 @@ FROM continuumio/miniconda3
 ARG NB_USER="user1000"
 ARG NB_UID="1000"
 ARG NB_GID="100"
+ARG CONDA_ENV="client_env"
+
 
 ENV CONDA_DIR=/opt/conda \
     HOME=/home/$NB_USER
@@ -22,13 +24,18 @@ WORKDIR /home/$NB_USER/rtn_pipeline
 USER $NB_UID
 
 COPY ./2-RTN/data/split /home/$NB_USER/rtn_pipeline/split
-
-COPY ./2-RTN/src/client /home/$NB_USER/rtn_pipeline/client
+COPY ./2-RTN/src/client /home/$NB_USER/rtn_pipeline/src
 
 COPY ./2-RTN/src/__init__.py /home/$NB_USER/rtn_pipeline/__init__.py
 
 COPY ./2-RTN/environment.yml /home/$NB_USER/rtn_pipeline/environment.yml
-
 RUN conda env create -f /home/$NB_USER/rtn_pipeline/environment.yml
+RUN conda init bash
+RUN conda activate $CONDA_ENV
+
+COPY ./2-RTN/setup.py /home/$NB_USER/rtn_pipeline/setup.py
+COPY ./2-RTN/requirements.txt /home/$NB_USER/rtn_pipeline/requirements.txt
+
+RUN pip install .
 
 #CMD ["conda", "run", "-n", "rtn-title-len-prediction"]

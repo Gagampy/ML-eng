@@ -5,7 +5,7 @@ from typing import Union, Dict
 from pandas import DataFrame
 from sklearn.linear_model import Lasso
 from sklearn.metrics import mean_absolute_error
-from .utils import get_train_and_test
+from src.utils import get_train_and_test
 import mlflow
 
 
