@@ -5,7 +5,7 @@ from typing import Union, Dict
 from pandas import DataFrame
 from sklearn.linear_model import Lasso
 from sklearn.metrics import mean_absolute_error
-from src.utils import get_train_and_test
+from utils import get_train_and_test
 import mlflow
 
 
@@ -22,10 +22,10 @@ def parse_args() -> argparse.Namespace:
     return parser
 
 
-def get_run_dataframe(experiment_name: str) -> Union[None, DataFrame]:
+def get_run_dataframe(experiment_name: str, uri: str) -> Union[None, DataFrame]:
     """ For specified experiment_name searches an experiment on MLFlow server and returns a run with it's ID. """
     experiment_id = None
-    for experiment in mlflow.tracking.MlflowClient().list_experiments():
+    for experiment in mlflow.tracking.MlflowClient(tracking_uri=uri).list_experiments():
         if experiment.name == experiment_name:
             experiment_id = experiment.experiment_id
 
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     parser = parse_args()
     x_train, y_train, x_test, y_test = get_train_and_test(parser.tr_data, parser.tt_data)
 
-    run_df = get_run_dataframe(parser.en)
+    run_df = get_run_dataframe(parser.en, parser.uri)
     if run_df is not None:
         params = get_params_from_run_df(run_df, model_name=parser.mn, metric=parser.m)
 
