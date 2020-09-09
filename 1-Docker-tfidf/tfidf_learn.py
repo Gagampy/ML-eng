@@ -5,13 +5,13 @@ import pickle
 def main():
 
     tfidf = TfidfVectorizer(max_df=0.8)
-    with open('data/shakespeare_input.txt', 'r') as f:
-        docs = ''.join(f.readlines()).split('\n')
+    with open("data/shakespeare_input.txt", "r") as f:
+        docs = "".join(f.readlines()).split("\n")
 
     tfidf.fit(docs)
-    with open('model/tfidf_model.pkl', 'wb') as file:
+    with open("model/tfidf_model.pkl", "wb") as file:
         pickle.dump(tfidf, file=file)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

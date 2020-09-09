@@ -9,20 +9,26 @@ import mlflow
 from mlflow import sklearn as mlflow_sklearn
 
 
-lasso_param_grid = {
-    'alpha': hp.choice('alpha', np.linspace(0.001, 1, num=1000))
-}
+lasso_param_grid = {"alpha": hp.choice("alpha", np.linspace(0.001, 1, num=1000))}
 gb_param_grid = {
-    'learning_rate': hp.choice('learning_rate', np.linspace(0.001, 1, num=1000)),
-    'n_estimators': hp.choice('n_estimators', np.array((75, 100, 150)))
+    "learning_rate": hp.choice("learning_rate", np.linspace(0.001, 1, num=1000)),
+    "n_estimators": hp.choice("n_estimators", np.array((75, 100, 150))),
 }
 
 
 class HyperoptHPOptimizer(object):
-
-    def __init__(self, x_trn: DataFrame, x_val: DataFrame, y_trn: DataFrame, y_val: DataFrame,
-                 hyperparameters_space: Dict[str, List], model_class, max_evals: int,
-                 experiment_name: str = 'rtn-title-len-regr', tracking_uri: str = 'http://rtn-mlflow-serv:5000'):
+    def __init__(
+        self,
+        x_trn: DataFrame,
+        x_val: DataFrame,
+        y_trn: DataFrame,
+        y_val: DataFrame,
+        hyperparameters_space: Dict[str, List],
+        model_class,
+        max_evals: int,
+        experiment_name: str = "rtn-title-len-regr",
+        tracking_uri: str = "http://rtn-mlflow-serv:5000",
+    ):
 
         self.trials = Trials()
         self.model_class = model_class
@@ -43,7 +49,7 @@ class HyperoptHPOptimizer(object):
 
         mae_val = mean_absolute_error(self.y_val, model.predict(self.x_val))
         mae_trn = mean_absolute_error(self.y_trn, model.predict(self.x_trn))
-        return model, {'mae_train': mae_trn, 'mae_val': mae_val}
+        return model, {"mae_train": mae_trn, "mae_val": mae_val}
 
     def _get_loss_with_mlflow(self, hyperparameters):
         # MLflow will track and save hyperparameters, loss, and scores.
@@ -62,7 +68,7 @@ class HyperoptHPOptimizer(object):
             mlflow_sklearn.log_model(model, "sklearn-model")
 
             # Use the last validation loss from the history object to optimize
-            return {'loss': metrics['mae_val'], 'status': STATUS_OK}
+            return {"loss": metrics["mae_val"], "status": STATUS_OK}
 
     def optimize(self):
         """
@@ -71,10 +77,11 @@ class HyperoptHPOptimizer(object):
         """
         # Use the fmin function from Hyperopt to find the best hyperparameters
         # Here we use the tree-parzen estimator method.
-        best = fmin(self._get_loss_with_mlflow, self.hyperparameters_space, algo=tpe.suggest,
-                    trials=self.trials, max_evals=self.max_evals)
+        best = fmin(
+            self._get_loss_with_mlflow,
+            self.hyperparameters_space,
+            algo=tpe.suggest,
+            trials=self.trials,
+            max_evals=self.max_evals,
+        )
         return best
-
-
-
-

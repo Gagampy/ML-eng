@@ -2,7 +2,9 @@ from typing import Tuple
 from pandas import DataFrame, Series, read_csv
 
 
-def get_train_and_test(train_path: str, test_path: str) -> Tuple[DataFrame, Series, DataFrame, Series]:
+def get_train_and_test(
+    train_path: str, test_path: str
+) -> Tuple[DataFrame, Series, DataFrame, Series]:
     """ Reads train and test datasets. """
     train_dataset = get_x_and_y(train_path)
     test_dataset = get_x_and_y(test_path)
