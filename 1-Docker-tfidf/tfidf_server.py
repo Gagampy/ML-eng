@@ -1,8 +1,5 @@
 import pickle
-
-print(help("modules"))
 from flask import Flask, request
-import os
 
 
 app = Flask(__name__)
@@ -19,13 +16,6 @@ if __name__ == "__main__":
 
     with open("model/tfidf_model.pkl", "rb") as f:
         tf_idf = pickle.load(f)
-
-    # stat_info = os.stat('model')
-    # uid = stat_info.st_uid
-    # gid = stat_info.st_gid
-    # print(uid, gid)
-    # print(os.getuid())
-    # print(os.getcwd())
 
     try:
         with open("model/logfile.log", "a+") as f:
