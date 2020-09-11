@@ -7,7 +7,7 @@ from sklearn.linear_model import Lasso
 from sklearn.ensemble import GradientBoostingRegressor
 from pandas import DataFrame, Series, read_csv
 
-from .utils import get_train_and_test
+from utils import get_train_and_test
 
 
 TRAINABLE_CLASSES = {Lasso: lasso_param_grid, GradientBoostingRegressor: gb_param_grid}
@@ -37,8 +37,8 @@ if __name__ == "__main__":
     for model_class, param_grid in TRAINABLE_CLASSES.items():
         hyper_optimizer = HyperoptHPOptimizer(
             x_train,
-            y_train,
             x_val,
+            y_train,
             y_val,
             param_grid,
             model_class=model_class,

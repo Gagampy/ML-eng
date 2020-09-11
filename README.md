@@ -35,4 +35,10 @@ Run server container:
 * `docker run --rm --name rtn-mlflow-serv -p 5000:5000 --network rtn-net -it rtn-mlflow-serv-img mlflow server --host 0.0.0.0`
 
 Run client container:
-* `docker run --rm  --name rtn-mlflow-client --network rtn-net -it rtn-mlflow-client-img conda run -n client_env python train_model.py`
+* `docker run --rm  --name rtn-mlflow-client --network rtn-net -it rtn-mlflow-client-img`
+
+To train models run:
+* `conda run -n client_env python src/train_models.py`
+
+To get metric on test set run with a model chosen by a git branch:
+* `conda run -n client_env python src/predict_by_model.py`
