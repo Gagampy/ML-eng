@@ -28,6 +28,7 @@ def get_run_dataframe(experiment_name: str, uri: str) -> Union[None, DataFrame]:
     for experiment in mlflow.tracking.MlflowClient(tracking_uri=uri).list_experiments():
         if experiment.name == experiment_name:
             experiment_id = experiment.experiment_id
+            break
 
     if experiment_id is None:
         warning(
@@ -35,19 +36,27 @@ def get_run_dataframe(experiment_name: str, uri: str) -> Union[None, DataFrame]:
         )
         return None
 
-    return mlflow.search_runs(experiment_id)
+    return mlflow.search_runs([experiment_id])
 
 
 def get_params_from_run_df(
     run_df: DataFrame, model_name: str, metric: str
 ) -> Dict[str, Union[str, float]]:
     """For specified model_name selects parameters corresponding to the best metric score from run_df. """
+
     run_df = run_df.copy().loc[run_df["tags.mlflow.runName"] == model_name]
     parameter_cols = [col for col in run_df.columns if col.startswith("params.")]
+    params = run_df.loc[run_df[f"metrics.{metric}"].idxmin()][parameter_cols].to_dict()
 
-    params = run_df.iloc[run_df[f"metrics.{metric}"].idxmin()][parameter_cols].to_dict()
-    params = {param.split(".")[-1]: value for param, value in params.items()}
-    return params
+    output_params = {}
+    for param, value in params.items():
+        if value is not None:
+            try:
+                value = float(value)
+            except:
+                pass
+            output_params[param.split(".")[-1]] = value
+    return output_params
 
 
 if __name__ == "__main__":
@@ -57,6 +66,7 @@ if __name__ == "__main__":
         parser.tr_data, parser.tt_data
     )
 
+    mlflow.set_tracking_uri(parser.uri)
     run_df = get_run_dataframe(parser.en, parser.uri)
     if run_df is not None:
         params = get_params_from_run_df(run_df, model_name=parser.mn, metric=parser.m)
