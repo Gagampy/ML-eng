@@ -52,7 +52,10 @@ def get_params_from_run_df(
     for param, value in params.items():
         if value is not None:
             try:
-                value = float(value)
+                if 'n_estimators' not in param:
+                    value = float(value)
+                else:
+                    value = int(value)
             except:
                 pass
             output_params[param.split(".")[-1]] = value
