@@ -16,5 +16,4 @@
 /1-Docker-tfidf/dockerfiles/fix_permissions
 /2-RTN/mlruns/
 2-RTN/src/__pycache__/
-/2-RTN/data/split/
 /2-RTN/data/split.zip
