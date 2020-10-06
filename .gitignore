@@ -10,7 +10,7 @@
 /conala_model_attention_test.pt
 /test.json
 /1-Docker-tfidf/setup.py
-/2-RTN/setup.py
+#/2-RTN/setup.py
 /1-Docker-tfidf/tf_idf/3_tfidf.txt
 /1-Docker-tfidf/requirements.txt
 /1-Docker-tfidf/dockerfiles/fix_permissions
