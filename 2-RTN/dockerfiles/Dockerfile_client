@@ -30,13 +30,3 @@ COPY ./2-RTN/src/__init__.py /home/$NB_USER/rtn_pipeline/__init__.py
 
 COPY ./2-RTN/environment.yml /home/$NB_USER/rtn_pipeline/environment.yml
 RUN conda env create -f /home/$NB_USER/rtn_pipeline/environment.yml
-
-COPY ./2-RTN/setup.py /home/$NB_USER/rtn_pipeline/setup.py
-COPY ./2-RTN/requirements.txt /home/$NB_USER/rtn_pipeline/requirements.txt
-
-#WORKDIR $CONDA_DIR
-#RUN ls
-#RUN conda activate $CONDA_DIR/envs/client_env
-#RUN pip install .
-
-#CMD ["conda", "run", "-n", "rtn-title-len-prediction"]
