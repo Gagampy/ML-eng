@@ -42,3 +42,6 @@ To train models run:
 
 To get metric on test set run with a model chosen by a git branch:
 * `conda run -n client_env python src/predict_by_model.py`
+
+(Optional) To install package as `rtn`:
+* `pip install .`

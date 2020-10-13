@@ -5,7 +5,6 @@ ARG NB_UID="1000"
 ARG NB_GID="100"
 ARG CONDA_ENV="client_env"
 
-
 ENV CONDA_DIR=/opt/conda \
     HOME=/home/$NB_USER
 
@@ -24,9 +23,22 @@ WORKDIR /home/$NB_USER/rtn_pipeline
 USER $NB_UID
 
 COPY ./2-RTN/data/split /home/$NB_USER/rtn_pipeline/split
-COPY ./2-RTN/src/client /home/$NB_USER/rtn_pipeline/src
+COPY ./2-RTN/src/client /home/$NB_USER/rtn_pipeline/client
 
 COPY ./2-RTN/src/__init__.py /home/$NB_USER/rtn_pipeline/__init__.py
 
+COPY ./2-RTN/requirements.txt /home/$NB_USER/rtn_pipeline/requirements.txt
+COPY ./2-RTN/setup.py /home/$NB_USER/rtn_pipeline/setup.py
+
 COPY ./2-RTN/environment.yml /home/$NB_USER/rtn_pipeline/environment.yml
+
+ENV PATH /opt/conda/envs/client_env/bin:$PATH
 RUN conda env create -f /home/$NB_USER/rtn_pipeline/environment.yml
+
+WORKDIR $HOME
+
+ENV PATH=$PATH:/home/$NB_USER/.local/bin
+RUN /bin/bash -c "source activate client_env"
+RUN pip install /home/$NB_USER/rtn_pipeline/
+
+WORKDIR /home/$NB_USER/rtn_pipeline
