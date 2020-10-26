@@ -1,32 +1,21 @@
 FROM continuumio/miniconda3
-
 ARG NB_USER="user1000"
 ARG NB_UID="1000"
 ARG NB_GID="100"
 ARG CONDA_ENV="client_env"
 
-
 ENV CONDA_DIR=/opt/conda \
     HOME=/home/$NB_USER
+
+RUN echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc
 
 RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER &&\
     mkdir -p $CONDA_DIR && \
     chown $NB_USER:$NB_GID $CONDA_DIR
 
-WORKDIR $HOME
-
-RUN mkdir /home/$NB_USER/rtn_pipeline # && mkdir /home/$NB_USER/rtn_pipeline/src
-
-RUN chown -R $NB_USER:$NB_GID /home/$NB_USER
-
+USER $NB_USER
+COPY --chown=$NB_UID:$NB_GID ./2-RTN/environment.yml ./2-RTN/data/split ./2-RTN/src/client ./2-RTN/src/__init__.py ./2-RTN/requirements.txt ./2-RTN/setup.py /home/$NB_USER/rtn_pipeline/
 WORKDIR /home/$NB_USER/rtn_pipeline
 
-USER $NB_UID
-
-COPY ./2-RTN/data/split /home/$NB_USER/rtn_pipeline/split
-COPY ./2-RTN/src/client /home/$NB_USER/rtn_pipeline/src
-
-COPY ./2-RTN/src/__init__.py /home/$NB_USER/rtn_pipeline/__init__.py
-
-COPY ./2-RTN/environment.yml /home/$NB_USER/rtn_pipeline/environment.yml
 RUN conda env create -f /home/$NB_USER/rtn_pipeline/environment.yml
+ENV PATH /opt/conda/envs/client_env/bin:$PATH:/home/$NB_USER/.local/bin
