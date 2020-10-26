@@ -7,8 +7,5 @@ dependencies:
   - numpy=1.18.*
   - pandas=1.0.3
   - pip=20.1
-#  - hyperopt
-#  - mlflow
   - pip:
-#    - scikit-learn
     - .
