@@ -14,8 +14,8 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER &&\
     chown $NB_USER:$NB_GID $CONDA_DIR
 
 USER $NB_USER
-COPY --chown=$NB_UID:$NB_GID ../environment.yml ./data/split ./requirements.txt ./setup.py /home/$NB_USER/rtn_pipeline/
-COPY ../rtn /home/$NB_USER/rtn_pipeline/rtn/
+COPY --chown=$NB_UID:$NB_GID environment.yml ./data/split ./requirements.txt ./setup.py /home/$NB_USER/rtn_pipeline/
+COPY rtn /home/$NB_USER/rtn_pipeline/rtn/
 
 WORKDIR /home/$NB_USER/rtn_pipeline
 

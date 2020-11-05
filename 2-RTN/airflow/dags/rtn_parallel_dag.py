@@ -3,6 +3,10 @@ from datetime import timedelta
 from airflow import DAG
 from airflow.utils.dates import days_ago
 from airflow.operators.python_operator import PythonOperator
+# import pkg_resources
+# import logging
+# installed_packages = [d.project_name for d in pkg_resources.working_set]
+# logging.info(", ".join(installed_packages))
 
 from rtn.airflow_tasks import (
     join_datatables_task,

@@ -1,0 +1,21 @@
+FROM continuumio/miniconda3
+ARG NB_USER="user1000"
+ARG NB_UID="1000"
+ARG NB_GID="100"
+
+ENV HOME=/home/$NB_USER
+
+COPY airflow/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER &&\
+    mkdir -p $HOME/data/filtered && mkdir -p $HOME/data/split\
+    chown $NB_USER:$NB_GID $HOME/data/filtered &&\
+    chown $NB_USER:$NB_GID $HOME/data/split
+
+FROM puckel/docker-airflow:1.10.9
+
+COPY data/split $HOME/data/split
+COPY ./requirements.txt $HOME/setup.py $HOME/
+COPY rtn $HOME/rtn/
+
+RUN pip install $HOME/.

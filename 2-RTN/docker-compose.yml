@@ -11,7 +11,9 @@ services:
 
   scheduler:
     container_name: scheduler
-    image: puckel/docker-airflow:1.10.9
+    build:
+      context: .
+      dockerfile: Dockerfile_airflow_serv
     depends_on:
       - postgres
     restart: always
@@ -19,14 +21,13 @@ services:
       - EXECUTOR=Local
     volumes:
       - ./airflow/dags:/usr/local/airflow/dags
-#    command: bash -c "airflow initdb && airflow scheduler"
     command: scheduler
 
   airflow-server:
     container_name: server_container
     build:
       context: .
-      dockerfile: dockerfiles/Dockerfile_airflow_serv
+      dockerfile: Dockerfile_airflow_serv
     depends_on:
       - scheduler
       - postgres

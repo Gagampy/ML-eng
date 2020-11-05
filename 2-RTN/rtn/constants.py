@@ -1,7 +1,7 @@
 from pathlib import Path
 
-DATAFOLDER_LOAD_PATH: Path = Path('/home/gagampy/EPAM/ML-eng-HW/lasso/ML-eng/2-RTN/data/split')
-DATAFOLDER_SAVE_PATH: Path = Path('/home/gagampy/EPAM/ML-eng-HW/lasso/ML-eng/2-RTN/data/filtered')
+DATAFOLDER_LOAD_PATH: Path = Path('./data/split')
+DATAFOLDER_SAVE_PATH: Path = Path('./data/filtered')
 
 RANDOM_SEED: int = 42
 
