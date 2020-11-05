@@ -14,7 +14,9 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER &&\
     chown $NB_USER:$NB_GID $CONDA_DIR
 
 USER $NB_USER
-COPY --chown=$NB_UID:$NB_GID ./2-RTN/environment.yml ./2-RTN/data/split ./2-RTN/src/client ./2-RTN/src/__init__.py ./2-RTN/requirements.txt ./2-RTN/setup.py /home/$NB_USER/rtn_pipeline/
+COPY --chown=$NB_UID:$NB_GID ../environment.yml ./data/split ./requirements.txt ./setup.py /home/$NB_USER/rtn_pipeline/
+COPY ../rtn /home/$NB_USER/rtn_pipeline/rtn/
+
 WORKDIR /home/$NB_USER/rtn_pipeline
 
 RUN conda env create -f /home/$NB_USER/rtn_pipeline/environment.yml

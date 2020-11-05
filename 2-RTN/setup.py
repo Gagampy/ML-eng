@@ -21,9 +21,9 @@ with open("requirements.txt") as f:
 setup(
     name="rtn",  # Required
     version="0.1.0",  # Required
-    # package_dir={'': 'src'},  # Optional
+    # package_dir={'': 'rtn'},  # Optional
     # packages=find_packages(),  # Required
     python_requires=">=3.7",
-    packages=['client'],
+    packages=['rtn'],
     install_requires=requirements,
 )

@@ -1,9 +1,9 @@
 md5: 3c662d025364a96c3364e6c0d273185a
-cmd: python 2-RTN/src/lemmatize.py
+cmd: python 2-RTN/rtn/lemmatize.py
 wdir: ../..
 deps:
 - md5: ec1f4027e4157e8db4a19ad5eed1b053
-  path: 2-RTN/src/lemmatize.py
+  path: 2-RTN/rtn/lemmatize.py
 - md5: 0b5f13927ffd9a7ced4e98cbcb7a743b
   path: 2-RTN/data/cleaned/cleaned.csv
 outs:

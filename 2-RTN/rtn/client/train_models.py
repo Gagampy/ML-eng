@@ -1,13 +1,10 @@
 import argparse
-from typing import Tuple
-
-from models import HyperoptHPOptimizer, lasso_param_grid, gb_param_grid
 
 from sklearn.linear_model import Lasso
 from sklearn.ensemble import GradientBoostingRegressor
-from pandas import DataFrame, Series, read_csv
 
 from utils import get_train_and_test
+from models import HyperoptHPOptimizer, lasso_param_grid, gb_param_grid
 
 
 TRAINABLE_CLASSES = {Lasso: lasso_param_grid, GradientBoostingRegressor: gb_param_grid}
@@ -22,11 +19,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("-en", default="rtn-title-len-regr")
     parser = parser.parse_args()
     return parser
-
-
-def get_x_and_y(dataset_path: str) -> Tuple[DataFrame, Series]:
-    dataset = read_csv(dataset_path)
-    return dataset.iloc[:, :-1], dataset.iloc[:, -1]
 
 
 if __name__ == "__main__":
