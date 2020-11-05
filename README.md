@@ -59,7 +59,7 @@ Run docker-compose for Dockerfiles:
 * `docker-compose up --build --remove-orphans`
 
 DAG is represented by this image and the pipeline is self-explanatory:
-![alt text](https://github.com/Gagampy/ML-eng/tree/mlflow_lasso/ML-eng/2-RTN/airflow/DAG_pipeline.png?raw=true)
+![alt text](https://github.com/Gagampy/ML-eng/blob/mlflow_lasso/2-RTN/airflow/DAG_pipeline.png?raw=true)
 
 All tasks for DAG are [here](https://github.com/Gagampy/ML-eng/tree/mlflow_lasso/ML-eng/2-RTN/rtn/airflow_tasks.py).  
 DAG itself and `airflow.cfg` [here](https://github.com/Gagampy/ML-eng/tree/mlflow_lasso/ML-eng/2-RTN/airflow/).  
