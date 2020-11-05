@@ -61,11 +61,11 @@ Run docker-compose for Dockerfiles:
 DAG is represented by this image and the pipeline is self-explanatory:
 ![alt text](https://github.com/Gagampy/ML-eng/blob/mlflow_lasso/2-RTN/airflow/DAG_pipeline.png?raw=true)
 
-All tasks for DAG are [here](https://github.com/Gagampy/ML-eng/tree/mlflow_lasso/ML-eng/2-RTN/rtn/airflow_tasks.py).  
-DAG itself and `airflow.cfg` [here](https://github.com/Gagampy/ML-eng/tree/mlflow_lasso/ML-eng/2-RTN/airflow/).  
+All tasks for DAG are [here](https://github.com/Gagampy/ML-eng/blob/mlflow_lasso/2-RTN/rtn/airflow_tasks.py).  
+DAG itself and `airflow.cfg` [here](https://github.com/Gagampy/ML-eng/blob/mlflow_lasso/2-RTN/airflow/).  
 
 Within the containers 2 folders are created: 
 * For airflow dags, config, logs etc.: `/usr/local/airflow`;
 * For project sources: `/usr/local/rtn-project`.  
   
-Data used [here](https://github.com/Gagampy/ML-eng/tree/mlflow_lasso/ML-eng/2-RTN/data/split/).
+Data used [here](https://github.com/Gagampy/ML-eng/blob/mlflow_lasso/2-RTN/data/split/).
