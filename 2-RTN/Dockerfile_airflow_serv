@@ -1,21 +1,19 @@
-FROM continuumio/miniconda3
-ARG NB_USER="user1000"
-ARG NB_UID="1000"
+FROM puckel/docker-airflow:1.10.9
+ARG NB_USER="airflow"
 ARG NB_GID="100"
 
-ENV HOME=/home/$NB_USER
+ENV AIRFLOW_DIR=/usr/local/$NB_USER \
+    PROJECT_DIR=/usr/local/rtn-project
 
-COPY airflow/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+USER root
+RUN mkdir -p $PROJECT_DIR/data/filtered && mkdir -p $PROJECT_DIR/data/split &&\
+    chown $NB_USER:$NB_GID $PROJECT_DIR/data/filtered &&\
+    chown $NB_USER:$NB_GID $PROJECT_DIR/data/split
 
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER &&\
-    mkdir -p $HOME/data/filtered && mkdir -p $HOME/data/split\
-    chown $NB_USER:$NB_GID $HOME/data/filtered &&\
-    chown $NB_USER:$NB_GID $HOME/data/split
+COPY airflow/airflow.cfg $AIRFLOW_DIR/airflow.cfg
+COPY data/split $PROJECT_DIR/data/split
 
-FROM puckel/docker-airflow:1.10.9
+COPY ./requirements.txt ./setup.py $PROJECT_DIR/
+COPY rtn $PROJECT_DIR/rtn/
 
-COPY data/split $HOME/data/split
-COPY ./requirements.txt $HOME/setup.py $HOME/
-COPY rtn $HOME/rtn/
-
-RUN pip install $HOME/.
+RUN pip install $PROJECT_DIR/.

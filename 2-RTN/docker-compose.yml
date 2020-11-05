@@ -21,6 +21,7 @@ services:
       - EXECUTOR=Local
     volumes:
       - ./airflow/dags:/usr/local/airflow/dags
+      - ./data/filtered:/usr/local/rtn-project/data/filtered
     command: scheduler
 
   airflow-server:
@@ -40,6 +41,7 @@ services:
       - webserver
     volumes:
       - ./airflow/dags:/usr/local/airflow/dags
+      - ./data/filtered:/usr/local/rtn-project/data/filtered
     healthcheck:
       test: [ "CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]" ]
       interval: 30s

@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import Tuple, Dict, Union, List
 import json
-
 import pandas as pd
 from rtn.preprocessing_utils import (
     join_datatables,

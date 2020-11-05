@@ -1,6 +1,5 @@
 from typing import Dict, Tuple
 from pathlib import Path
-
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
@@ -96,7 +95,7 @@ def save_splitted_dataset(
     **kwargs
 ):
     savefolder_path.mkdir(exist_ok=True)
-
+    # logging.info(os.getcwd())
     X_train.to_csv(savefolder_path / 'train_filtered.csv', index=False)
     X_val.to_csv(savefolder_path / 'val_filtered.csv', index=False)
     X_test.to_csv(savefolder_path / 'test_filtered.csv', index=False)

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-DATAFOLDER_LOAD_PATH: Path = Path('./data/split')
-DATAFOLDER_SAVE_PATH: Path = Path('./data/filtered')
+DATAFOLDER_LOAD_PATH: Path = Path('/usr/local/rtn-project/data/split')
+DATAFOLDER_SAVE_PATH: Path = Path('/usr/local/rtn-project/data/filtered')
 
 RANDOM_SEED: int = 42
 
