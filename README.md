@@ -59,4 +59,4 @@ Run docker-compose for Dockerfiles:
 * `docker-compose up --build --remove-orphans`
 
 DAG is represented by this image:
-![alt text](https://github.com/Gagampy/ML-eng/tree/mlflow_lasso/ML-eng/2-RTN/airflow/DAG_pipeline.png?raw=true)
+![alt text](https://github.com/Gagampy/ML-eng/blob/mlflow_lasso/2-RTN/airflow/DAG_pipeline.png?raw=true)
