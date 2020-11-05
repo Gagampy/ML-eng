@@ -22,11 +22,14 @@ Inspect 2-RTN for environment and DVC stages.
 
 ## 3rd task:
 
+Change CWD:
+* `cd 2-RTN`
+
 Build Docker image with conda for client:
-* `docker build -t rtn-mlflow-client-img -f 2-RTN/dockerfiles/Dockerfile_client .`
+* `docker build -t rtn-mlflow-client-img -f Dockerfile_client .`
 
 Build Docker image with mlflow for server:
-* `docker build -t rtn-mlflow-serv-img -f 2-RTN/dockerfiles/Dockerfile_mlflow_serv .`
+* `docker build -t rtn-mlflow-serv-img -f Dockerfile_mlflow_serv .`
 
 Create `rtn-net` network if it's absent in your network list:
 * `docker network create rtn-net`
@@ -45,3 +48,15 @@ To get metric on test set run with a model chosen by a git branch:
 
 (Optional) To install package as `rtn`:
 * `pip install .`
+
+
+## 4rd task:
+
+Change CWD:
+* `cd 2-RTN`
+
+Run docker-compose for Dockerfiles:
+* `docker-compose up --build --remove-orphans`
+
+DAG is represented by this image:
+![alt text](https://github.com/Gagampy/ML-eng/tree/mlflow_lasso/ML-eng/2-RTN/airflow/DAG_pipeline.png?raw=true)
