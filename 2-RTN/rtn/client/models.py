@@ -26,6 +26,7 @@ class HyperoptHPOptimizer(object):
         hyperparameters_space: Dict[str, List],
         model_class,
         max_evals: int,
+        send_to_mlflow: bool = True,
         experiment_name: str = "rtn-title-len-regr",
         tracking_uri: str = "http://rtn-mlflow-serv:5000",
     ):
@@ -39,9 +40,11 @@ class HyperoptHPOptimizer(object):
         self.x_val = x_val
         self.y_trn = y_trn
         self.y_val = y_val
+        self.send_to_mlflow = send_to_mlflow
 
-        mlflow.set_tracking_uri(tracking_uri)
-        mlflow.set_experiment(experiment_name)
+        if self.send_to_mlflow:
+            mlflow.set_tracking_uri(tracking_uri)
+            mlflow.set_experiment(experiment_name)
 
     def fit_model_and_return_loss(self, hyperparameters):
         model = self.model_class(**hyperparameters)
@@ -70,6 +73,10 @@ class HyperoptHPOptimizer(object):
             # Use the last validation loss from the history object to optimize
             return {"loss": metrics["mae_val"], "status": STATUS_OK}
 
+    def _get_loss(self, hyperparameters):
+        model, metrics = self.fit_model_and_return_loss(hyperparameters)
+        return {"loss": metrics["mae_val"], "status": STATUS_OK}
+
     def optimize(self):
         """
         This is the optimization function that given a space of
@@ -77,8 +84,13 @@ class HyperoptHPOptimizer(object):
         """
         # Use the fmin function from Hyperopt to find the best hyperparameters
         # Here we use the tree-parzen estimator method.
+        if self.send_to_mlflow:
+            training_func = self._get_loss_with_mlflow
+        else:
+            training_func = self._get_loss
+
         best = fmin(
-            self._get_loss_with_mlflow,
+            training_func,
             self.hyperparameters_space,
             algo=tpe.suggest,
             trials=self.trials,

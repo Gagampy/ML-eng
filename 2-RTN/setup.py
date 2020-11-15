@@ -22,8 +22,8 @@ setup(
     name="rtn",  # Required
     version="0.1.0",  # Required
     # package_dir={'': 'rtn'},  # Optional
-    # packages=find_packages(),  # Required
+    packages=find_packages(),  # Required
     python_requires=">=3.7",
-    packages=['rtn'],
+    # packages=['rtn'],
     install_requires=requirements,
 )

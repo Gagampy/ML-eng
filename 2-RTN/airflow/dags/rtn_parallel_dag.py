@@ -12,11 +12,13 @@ from rtn.airflow_tasks import (
     remove_outliers_from_train_task,
     remove_outliers_from_valid_task,
     remove_outliers_from_test_task,
-    save_train_feature_quantiles
+    save_train_feature_quantiles,
+    train_model_and_get_predictions,
 )
 from rtn.constants import (
     DATAFOLDER_LOAD_PATH,
     DATAFOLDER_SAVE_PATH,
+    MODELFOLDER_SAVE_PATH,
     RANDOM_SEED,
     TRAIN_RATIO,
     VALID_RATIO,
@@ -99,7 +101,7 @@ remove_outliers_test_operator = PythonOperator(
 )
 
 save_feature_quantiles_operator = PythonOperator(
-    task_id='saving_feature_quantiles',
+    task_id="saving_feature_quantiles",
     provide_context=True,
     python_callable=save_train_feature_quantiles,
     op_kwargs={"savefolder_path": DATAFOLDER_SAVE_PATH},
@@ -122,6 +124,21 @@ save_dataset_operator = PythonOperator(
     dag=dag,
 )
 
+get_test_score_operator = PythonOperator(
+    task_id="getting_test_score",
+    provide_context=True,
+    python_callable=train_model_and_get_predictions,
+    op_kwargs={
+        "savefolder_path": MODELFOLDER_SAVE_PATH,
+        "source_task_id": [
+            "removing_outliers_train",
+            "removing_outliers_valid",
+            "removing_outliers_test",
+        ],
+    },
+    dag=dag,
+)
+
 
 join_datatables_operator >> split_data_operator >> calculating_feature_quantiles_operator >> [
     remove_outliers_train_operator,
@@ -130,3 +147,10 @@ join_datatables_operator >> split_data_operator >> calculating_feature_quantiles
 ] >> save_dataset_operator
 
 calculating_feature_quantiles_operator.set_downstream(save_feature_quantiles_operator)
+get_test_score_operator.set_upstream(
+    [
+        remove_outliers_train_operator,
+        remove_outliers_valid_operator,
+        remove_outliers_test_operator,
+    ]
+)

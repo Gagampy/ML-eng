@@ -10,6 +10,11 @@ from rtn.preprocessing_utils import (
     get_feature_quantiles,
     remove_outliers_from_features,
 )
+from rtn.client.models import HyperoptHPOptimizer, lasso_param_grid
+from sklearn.linear_model import Lasso
+from sklearn.metrics import mean_absolute_error
+import hyperopt as hp
+import pickle as pkl
 
 
 def join_datatables_task(datapath: Path = None, **kwargs) -> pd.DataFrame:
@@ -102,3 +107,46 @@ def save_train_feature_quantiles(savefolder_path: Path, **kwargs):
     feature_quantiles = kwargs["ti"].xcom_pull(task_ids="calculating_feature_quantiles")
     with open(savefolder_path/'train_feature_quantiles.json', 'w') as fs:
         json.dump(feature_quantiles, fs)
+
+
+def train_model_and_get_predictions(savefolder_path: Path, **kwargs):
+    """
+    Runs HyperOpt on model's grid, fits with best params, gets MAE score on test
+    and saves model instance with name 'lasso_model_test_mae_{test_score}.pkl'.
+    """
+    savefolder_path.mkdir(exist_ok=True)
+
+    X_train = kwargs["ti"].xcom_pull(task_ids='removing_outliers_train')
+    X_val = kwargs["ti"].xcom_pull(task_ids='removing_outliers_valid')
+    X_test = kwargs["ti"].xcom_pull(task_ids='removing_outliers_test')
+
+    y_train = X_train["title_len"]
+    y_val = X_val["title_len"]
+    y_test = X_test["title_len"]
+
+    X_train.drop(columns="title_len", inplace=True)
+    X_val.drop(columns="title_len", inplace=True)
+    X_test.drop(columns="title_len", inplace=True)
+
+    hyper_optimizer = HyperoptHPOptimizer(
+        X_train,
+        X_val,
+        y_train,
+        y_val,
+        lasso_param_grid,
+        model_class=Lasso,
+        max_evals=20,
+        tracking_uri="",
+        experiment_name="",
+        send_to_mlflow=False
+    )
+
+    best_trials = hyper_optimizer.optimize()
+    param_grid = hp.space_eval(lasso_param_grid, best_trials)
+
+    model_instance = Lasso(**param_grid)
+    model_instance.fit(X_train, y_train)
+
+    test_score = round(mean_absolute_error(y_test, model_instance.predict(X_test)), 3)
+    with open(savefolder_path/f'lasso_model_test_mae_{test_score}.pkl', 'wb') as f:
+        pkl.dump(model_instance, f)

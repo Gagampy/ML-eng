@@ -2,6 +2,7 @@ from pathlib import Path
 
 DATAFOLDER_LOAD_PATH: Path = Path('/usr/local/rtn-project/data/split')
 DATAFOLDER_SAVE_PATH: Path = Path('/usr/local/rtn-project/data/filtered')
+MODELFOLDER_SAVE_PATH: Path = Path('/usr/local/rtn-project/data/models')
 
 RANDOM_SEED: int = 42
 
