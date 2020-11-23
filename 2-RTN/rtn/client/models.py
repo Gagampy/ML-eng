@@ -68,7 +68,7 @@ class HyperoptHPOptimizer(object):
             for metric_name, value in metrics.items():
                 mlflow.log_metric(metric_name, value)
 
-            mlflow_sklearn.log_model(model, "sklearn-model")
+            mlflow_sklearn.log_model(model, self.run_name)
 
             # Use the last validation loss from the history object to optimize
             return {"loss": metrics["mae_val"], "status": STATUS_OK}

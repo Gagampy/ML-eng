@@ -12,9 +12,6 @@ from rtn.preprocessing_utils import (
 )
 from rtn.client.models import HyperoptHPOptimizer, lasso_param_grid
 from sklearn.linear_model import Lasso
-from sklearn.metrics import mean_absolute_error
-import hyperopt as hp
-import pickle as pkl
 
 
 def join_datatables_task(datapath: Path = None, **kwargs) -> pd.DataFrame:
@@ -136,17 +133,8 @@ def train_model_and_get_predictions(savefolder_path: Path, **kwargs):
         lasso_param_grid,
         model_class=Lasso,
         max_evals=20,
-        tracking_uri="",
-        experiment_name="",
-        send_to_mlflow=False
+        tracking_uri="http://mlflow-server:5000",
+        send_to_mlflow=True,
     )
 
-    best_trials = hyper_optimizer.optimize()
-    param_grid = hp.space_eval(lasso_param_grid, best_trials)
-
-    model_instance = Lasso(**param_grid)
-    model_instance.fit(X_train, y_train)
-
-    test_score = round(mean_absolute_error(y_test, model_instance.predict(X_test)), 3)
-    with open(savefolder_path/f'lasso_model_test_mae_{test_score}.pkl', 'wb') as f:
-        pkl.dump(model_instance, f)
+    _ = hyper_optimizer.optimize()

@@ -47,3 +47,14 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
+
+  mlflow-server:
+    container_name: mlflow_server_container
+    build:
+      context: .
+      dockerfile: Dockerfile_mlflow_serv
+    restart: always
+    ports:
+        - "5000:5000"
+    command:
+      "mlflow server --host 0.0.0.0 --port 5000"
